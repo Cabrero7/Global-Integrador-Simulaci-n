@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador Aleatorio</title>
+</head>
+<body>
+    <h1>Generador de Números Aleatorios</h1>
+    <form method="POST">
+        <label>Tipo de generador:</label><br>
+        <select name="tipo">
+            <option value="mixto">Congruencial Mixto</option>
+            <option value="multiplicativo">Multiplicativo</option>
+            <option value="bits">Bits del sistema</option>
+        </select><br><br>
+
+        <label>Parámetros (si aplica):</label><br>
+        a: <input type="number" name="a"><br>
+        b: <input type="number" name="b"><br>
+        m: <input type="number" name="m"><br>
+        semilla: <input type="number" name="semilla"><br><br>
+
+        Cantidad: <input type="number" name="cantidad" value="100"><br>
+        Intervalos: <input type="number" name="intervalos" value="5"><br>
+        Alpha: <input type="text" name="alpha" value="0.05"><br><br>
+
+        <input type="submit" value="Generar y Validar">
+    </form>
+
+    {% if resultado %}
+        <h2>Resultados</h2>
+        <p><b>Primeros números generados:</b> {{ resultado.numeros }}</p>
+        <p><b>Chi-cuadrada:</b> χ² = {{ resultado.chi.chi2_stat }} | Valor crítico = {{ resultado.chi.valor_critico }}</p>
+        <p><b>¿Cumple la prueba?:</b> {{ "Sí" if resultado.chi.cumple else "No" }}</p>
+        <p><b>Entropía:</b> {{ resultado.entropia|round(4) }} bits</p>
+    {% endif %}
+</body>
+</html>
