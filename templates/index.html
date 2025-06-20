@@ -3,36 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <title>Generador Aleatorio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0066cc;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input[type="number"], input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #004c99;
+        }
+        .resultados {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f0fe;
+            border-left: 5px solid #0066cc;
+        }
+        .resultados p {
+            margin: 8px 0;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
     <h1>Generador de Números Aleatorios</h1>
     <form method="POST">
-        <label>Tipo de generador:</label><br>
+        <label>Tipo de generador:</label>
         <select name="tipo">
             <option value="mixto">Congruencial Mixto</option>
             <option value="multiplicativo">Multiplicativo</option>
             <option value="bits">Bits del sistema</option>
-        </select><br><br>
+        </select>
 
-        <label>Parámetros (si aplica):</label><br>
-        a: <input type="number" name="a"><br>
-        b: <input type="number" name="b"><br>
-        m: <input type="number" name="m"><br>
-        semilla: <input type="number" name="semilla"><br><br>
+        <label>a:</label>
+        <input type="number" name="a">
 
-        Cantidad: <input type="number" name="cantidad" value="100"><br>
-        Intervalos: <input type="number" name="intervalos" value="5"><br>
-        Alpha: <input type="text" name="alpha" value="0.05"><br><br>
+        <label>b:</label>
+        <input type="number" name="b">
+
+        <label>m:</label>
+        <input type="number" name="m">
+
+        <label>Semilla:</label>
+        <input type="number" name="semilla">
+
+        <label>Cantidad de números:</label>
+        <input type="number" name="cantidad" value="100">
+
+        <label>Intervalos:</label>
+        <input type="number" name="intervalos" value="5">
+
+        <label>Alpha:</label>
+        <input type="text" name="alpha" value="0.05">
 
         <input type="submit" value="Generar y Validar">
     </form>
 
     {% if resultado %}
+    <div class="resultados">
         <h2>Resultados</h2>
-        <p><b>Primeros números generados:</b> {{ resultado.numeros }}</p>
-        <p><b>Chi-cuadrada:</b> χ² = {{ resultado.chi.chi2_stat }} | Valor crítico = {{ resultado.chi.valor_critico }}</p>
-        <p><b>¿Cumple la prueba?:</b> {{ "Sí" if resultado.chi.cumple else "No" }}</p>
-        <p><b>Entropía:</b> {{ resultado.entropia|round(4) }} bits</p>
+        <p><strong>Primeros números generados:</strong> {{ resultado.numeros }}</p>
+        <p><strong>Chi-cuadrada:</strong> &chi;<sup>2</sup> = {{ resultado.chi.chi2_stat }} | Valor crítico = {{ resultado.chi.valor_critico }}</p>
+        <p><strong>¿Cumple la prueba?</strong> {{ "Sí" if resultado.chi.cumple else "No" }}</p>
+        <p><strong>Entropía:</strong> {{ resultado.entropia|round(4) }} bits</p>
+    </div>
     {% endif %}
+</div>
 </body>
 </html>
